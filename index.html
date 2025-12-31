@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Luna Fantasy</title>
-  <meta name="description" content="Luna Fantasy — dark fantasy universe of cards, lore, and community." />
+  <meta name="description" content="لونا فانتاسي — عالم فانتازيا ضخم متكامل على منصة ديسكورد." />
 
   <style>
     :root{
@@ -12,7 +12,7 @@
       --panel: rgba(10,14,26,.55);
       --stroke: rgba(140,170,255,.18);
       --text:#e9edff;
-      --muted:rgba(233,237,255,.75);
+      --muted:rgba(233,237,255,.78);
       --blue:#3b82f6;
       --blue2:#60a5fa;
       --shadow: 0 20px 70px rgba(0,0,0,.55);
@@ -22,14 +22,13 @@
 
     *{box-sizing:border-box}
     html,body{height:100%}
-
     body{
       margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Tahoma, Arial, sans-serif;
       color:var(--text);
       background:
-        radial-gradient(1200px 700px at 50% 10%, rgba(59,130,246,.25), transparent 60%),
-        radial-gradient(900px 600px at 15% 85%, rgba(96,165,250,.18), transparent 60%),
+        radial-gradient(1200px 700px at 50% 10%, rgba(59,130,246,.20), transparent 60%),
+        radial-gradient(900px 600px at 15% 85%, rgba(96,165,250,.14), transparent 60%),
         var(--bg);
       overflow-x:hidden;
     }
@@ -37,11 +36,9 @@
     a{color:inherit}
     .wrap{max-width:var(--max); margin:0 auto; padding:0 18px}
 
-    /* Top bar */
+    /* Topbar */
     .topbar{
-      position:sticky;
-      top:0;
-      z-index:50;
+      position:sticky; top:0; z-index:50;
       backdrop-filter: blur(14px);
       background: rgba(7,10,18,.55);
       border-bottom: 1px solid rgba(255,255,255,.06);
@@ -57,17 +54,18 @@
       display:flex;
       align-items:center;
       gap:10px;
-      font-weight:800;
-      letter-spacing:.3px;
+      font-weight:900;
+      letter-spacing:.2px;
     }
     .brand-badge{
       width:34px;height:34px;border-radius:12px;
       background: linear-gradient(135deg, rgba(59,130,246,.95), rgba(96,165,250,.55));
       box-shadow: 0 10px 28px rgba(59,130,246,.25);
       border:1px solid rgba(255,255,255,.12);
+      flex:0 0 auto;
     }
     .nav{
-      display:flex; gap:12px; align-items:center;
+      display:flex; gap:10px; align-items:center;
       color: rgba(233,237,255,.78);
       font-size:14px;
     }
@@ -76,6 +74,7 @@
       padding:8px 10px;
       border-radius:10px;
       border:1px solid transparent;
+      white-space:nowrap;
     }
     .nav a:hover{
       border-color: rgba(255,255,255,.10);
@@ -91,15 +90,15 @@
       padding: 56px 0 40px;
     }
 
-    /* الخلفية هنا — هذا هو المكان الصحيح */
+    /* الخلفية */
     .hero::before{
       content:"";
       position:absolute;
       inset:-40px -40px -40px -40px;
       background:
-        linear-gradient(to bottom, rgba(7,10,18,.25), rgba(7,10,18,.88) 70%),
+        linear-gradient(to bottom, rgba(7,10,18,.30), rgba(7,10,18,.90) 70%),
         url("assets/hero.png") center/cover no-repeat;
-      filter: saturate(1.05) contrast(1.05);
+      filter: saturate(1.05) contrast(1.06);
       z-index:-2;
     }
     .hero::after{
@@ -107,8 +106,8 @@
       position:absolute;
       inset:0;
       background:
-        radial-gradient(900px 500px at 50% 30%, rgba(59,130,246,.28), transparent 60%),
-        radial-gradient(700px 420px at 80% 70%, rgba(96,165,250,.16), transparent 60%);
+        radial-gradient(900px 500px at 50% 30%, rgba(59,130,246,.22), transparent 60%),
+        radial-gradient(700px 420px at 80% 70%, rgba(96,165,250,.12), transparent 60%);
       z-index:-1;
     }
 
@@ -140,8 +139,8 @@
       margin:0 0 18px;
       color: var(--muted);
       font-size: 15.5px;
-      line-height: 1.7;
-      max-width: 56ch;
+      line-height: 1.9;
+      max-width: 62ch;
     }
 
     .cta-row{
@@ -158,11 +157,12 @@
       gap:10px;
       padding: 12px 18px;
       border-radius: 14px;
-      font-weight: 800;
+      font-weight: 900;
       text-decoration:none;
       border: 1px solid rgba(255,255,255,.12);
       background: rgba(255,255,255,.06);
       transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      white-space:nowrap;
     }
     .btn:hover{
       transform: translateY(-1px);
@@ -172,7 +172,7 @@
     .btn-primary{
       background: linear-gradient(135deg, rgba(59,130,246,1), rgba(96,165,250,.9));
       border-color: rgba(255,255,255,.18);
-      box-shadow: 0 18px 40px rgba(59,130,246,.24);
+      box-shadow: 0 18px 40px rgba(59,130,246,.20);
     }
     .btn-primary:hover{
       background: linear-gradient(135deg, rgba(59,130,246,1), rgba(96,165,250,1));
@@ -186,12 +186,14 @@
       color: rgba(233,237,255,.78);
       font-size: 13px;
     }
-    .pill span{
+    .pill a{
+      text-decoration:none;
       padding: 8px 10px;
       border-radius: 999px;
       border: 1px solid rgba(255,255,255,.10);
       background: rgba(255,255,255,.04);
     }
+    .pill a:hover{background: rgba(255,255,255,.06)}
 
     .hero-side{
       border-radius: var(--radius);
@@ -216,7 +218,7 @@
       margin: 10px 0 0;
       color: rgba(233,237,255,.70);
       font-size: 13px;
-      line-height: 1.6;
+      line-height: 1.7;
     }
 
     /* Sections */
@@ -229,9 +231,9 @@
     .section-sub{
       margin:0 0 18px;
       color: rgba(233,237,255,.72);
-      line-height:1.7;
+      line-height:1.9;
       font-size: 14.5px;
-      max-width: 70ch;
+      max-width: 75ch;
     }
     .grid{
       display:grid;
@@ -246,34 +248,21 @@
       box-shadow: 0 18px 55px rgba(0,0,0,.25);
     }
     .card h3{margin:0 0 8px; font-size: 15px}
-    .card p{margin:0; color: rgba(233,237,255,.72); font-size: 13.5px; line-height:1.65}
+    .card p{margin:0; color: rgba(233,237,255,.72); font-size: 13.5px; line-height:1.85}
 
-    /* Media */
-    .media-grid{
-      display:grid;
-      grid-template-columns: 1.2fr .8fr;
-      gap: 12px;
-      align-items:stretch;
+    /* Social */
+    .social{
+      display:flex; gap:10px; flex-wrap:wrap;
     }
-    .media-frame{
-      border-radius: var(--radius);
-      overflow:hidden;
+    .social a{
+      text-decoration:none;
+      padding: 9px 12px;
+      border-radius: 12px;
       border: 1px solid rgba(255,255,255,.10);
       background: rgba(255,255,255,.04);
-      min-height: 280px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      color: rgba(233,237,255,.65);
-      font-size: 14px;
-      padding: 16px;
+      font-size: 13px;
     }
-    .media-frame iframe{
-      width:100%;
-      height: 100%;
-      min-height: 280px;
-      border:0;
-    }
+    .social a:hover{background: rgba(255,255,255,.06)}
 
     /* Footer */
     footer{
@@ -289,26 +278,17 @@
       gap: 12px;
       flex-wrap:wrap;
     }
-    .social{
-      display:flex; gap:10px; flex-wrap:wrap;
-    }
-    .social a{
-      text-decoration:none;
-      padding: 9px 12px;
-      border-radius: 12px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.04);
-    }
-    .social a:hover{background: rgba(255,255,255,.06)}
 
     /* Responsive */
     @media (max-width: 900px){
       .hero-grid{grid-template-columns: 1fr}
       .grid{grid-template-columns: 1fr}
-      .media-grid{grid-template-columns: 1fr}
       .nav{display:none}
       .hero{min-height:auto}
     }
+
+    /* Smooth scroll */
+    html{scroll-behavior:smooth}
   </style>
 </head>
 
@@ -319,10 +299,12 @@
         <div class="brand-badge"></div>
         <div>Luna Fantasy</div>
       </div>
+
       <div class="nav">
-        <a href="#about">About</a>
-        <a href="#media">Media</a>
-        <a href="#join">Join</a>
+        <a href="#overview">نظرة عامة</a>
+        <a href="#story">قصة لونا</a>
+        <a href="#fantasy">لونا فانتاسي</a>
+        <a href="#characters">شخصياتنا</a>
       </div>
     </div>
   </div>
@@ -335,92 +317,87 @@
             <div>
               <h1>Luna Fantasy</h1>
               <p class="subtitle">
-                A dark fantasy universe of cards, lore, and community.
-                Step into the world of Luna and become a Lunarian.
+                لونا عالم فانتازيا ضخم متكامل بشخصيات عديدة من رواية لونا المبنية على رواية حقيقية وتحولت الى مزيج مابين الحقيقة ونسج من الخيال طورناها علي منصة ديسكورد في هيئة مجتمع متكامل ومكان للعب وتقمص الأدوار.
               </p>
 
               <div class="cta-row" id="join">
-                <a class="btn btn-primary" href="https://discord.gg/lunarian" target="_blank" rel="noopener">Join Discord</a>
-                <a class="btn" href="#about">Explore</a>
+                <a class="btn btn-primary" href="https://discord.gg/lunarian" target="_blank" rel="noopener">انضم للديسكورد</a>
+                <a class="btn" href="#overview">نظرة عامة</a>
               </div>
 
               <div class="pill">
-                <span>Cards & Lore</span>
-                <span>Events</span>
-                <span>Community</span>
+                <a href="#story">قصة لونا</a>
+                <a href="#fantasy">لونا فانتاسي</a>
+                <a href="#characters">شخصياتنا</a>
               </div>
             </div>
 
             <div class="hero-side">
-              <div class="stat"><b>Server</b><span>Lunarian</span></div>
-              <div class="stat"><b>Game</b><span>Luna Fantasy</span></div>
-              <div class="stat"><b>Content</b><span>Cards · Lore · Media</span></div>
+              <div class="stat"><b>السيرفر</b><span>Lunarian</span></div>
+              <div class="stat"><b>اللعبة</b><span>Luna Fantasy</span></div>
+              <div class="stat"><b>المحتوى</b><span>قصة · مجتمع · لعب أدوار</span></div>
+
               <p class="note">
-                Background image is loaded from <b>assets/hero.jpg</b>.
-                If it doesn’t show, your file name/path is wrong.
+                تابعنا على:
               </p>
+              <div class="social" style="margin-top:10px">
+                <a href="https://www.instagram.com/luna.passage?igsh=dmVzdGtscWJ2cW91" target="_blank" rel="noopener">Instagram</a>
+                <a href="https://www.tiktok.com/@luna.passage?_r=1&_t=ZS-92gBHpRbSNT" target="_blank" rel="noopener">TikTok</a>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="about">
+    <section id="overview">
       <div class="wrap">
-        <h2 class="section-title">What is Luna Fantasy?</h2>
+        <h2 class="section-title">نظرة عامة</h2>
         <p class="section-sub">
-          Luna Fantasy is a dark fantasy universe built around collectible cards, lore, and a community-driven experience.
-          This is your official hub — simple now, expandable later.
+          هنا نبدأ من الأساس: عالم Luna، فكرته، ولماذا المجتمع مختلف. هذا القسم نقدر نطوره بكرة بإضافة صور، فيديو تريلر، وروابط أقسام داخلية.
         </p>
 
         <div class="grid">
           <div class="card">
-            <h3>Cards</h3>
-            <p>Showcase classes, rarities, and your official designs in one clean place.</p>
+            <h3>قصة لونا</h3>
+            <p>ملخص سريع يمهّد للقصة، الشخصيات، وامتداد العالم بين الواقع والخيال.</p>
           </div>
           <div class="card">
-            <h3>Lore</h3>
-            <p>Publish story beats, character pages, and world info without making it messy.</p>
+            <h3>لونا فانتاسي</h3>
+            <p>مكان اللعب والتجارب والأنشطة داخل الديسكورد، وتطوير التجربة مع الوقت.</p>
           </div>
           <div class="card">
-            <h3>Community</h3>
-            <p>Discord-first. Everything points back to your server and your ecosystem.</p>
+            <h3>شخصياتنا</h3>
+            <p>عرض الشخصيات الرئيسية والهوية البصرية، وبناء صفحات مخصصة لكل شخصية لاحقًا.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="media">
+    <section id="story">
       <div class="wrap">
-        <h2 class="section-title">Media</h2>
+        <h2 class="section-title">قصة لونا</h2>
         <p class="section-sub">
-          Put a trailer or showcase video here. Replace the placeholder with a YouTube embed when you’re ready.
+          هذا مكان القصة الرسمي. بكرة نضيف هنا ملخص مرتب (مقاطع قصيرة) مع صور مرافقة.
         </p>
+      </div>
+    </section>
 
-        <div class="media-grid">
-          <div class="media-frame">
-            <!-- Replace later with an embed:
-                 <iframe src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe>
-            -->
-            <div>
-              Video placeholder<br/>
-              <span style="opacity:.8;font-size:13px">Later: paste a YouTube embed here</span>
-            </div>
-          </div>
+    <section id="fantasy">
+      <div class="wrap">
+        <h2 class="section-title">لونا فانتاسي</h2>
+        <p class="section-sub">
+          هذا القسم للأنشطة واللعب وتقمص الأدوار. نقدر نضيف قائمة مزايا/قوانين/طريقة الانضمام بشكل منظم.
+        </p>
+      </div>
+    </section>
 
-          <div class="card">
-            <h3>Quick links</h3>
-            <p style="margin-top:10px; line-height:1.9">
-              • Discord: <a href="https://discord.gg/lunarian" target="_blank" rel="noopener" style="opacity:.95">discord.gg/lunarian</a><br/>
-              • Website: <span style="opacity:.9">luna-fantasy.com</span><br/>
-              • Updates: <span style="opacity:.9">Coming soon</span>
-            </p>
-            <div class="cta-row" style="margin-top:12px">
-              <a class="btn btn-primary" href="https://discord.gg/lunarian" target="_blank" rel="noopener">Join Now</a>
-              <a class="btn" href="#top">Back to top</a>
-            </div>
-          </div>
-        </div>
+    <section id="characters">
+      <div class="wrap">
+        <h2 class="section-title">شخصياتنا</h2>
+        <p class="section-sub">
+          هنا نعرض الشخصيات. بكرة نسوي Grid بطاقات (Cards) مع صور وأسماء ووصف مختصر وزر “اقرأ المزيد”.
+        </p>
       </div>
     </section>
   </main>
@@ -429,14 +406,10 @@
     <div class="wrap footer-row">
       <div>© Luna Fantasy</div>
       <div class="social">
-        <!-- Replace later -->
-        <a href="#" target="_blank" rel="noopener">Instagram</a>
-        <a href="#" target="_blank" rel="noopener">TikTok</a>
-        <a href="#" target="_blank" rel="noopener">YouTube</a>
-        <a href="#" target="_blank" rel="noopener">X</a>
+        <a href="https://www.instagram.com/luna.passage?igsh=dmVzdGtscWJ2cW91" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.tiktok.com/@luna.passage?_r=1&_t=ZS-92gBHpRbSNT" target="_blank" rel="noopener">TikTok</a>
       </div>
     </div>
   </footer>
 </body>
 </html>
-
