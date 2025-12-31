@@ -9,137 +9,24 @@
   <style>
     :root{
       --bg:#070a12;
-      --panel: rgba(10,14,26,.55);
-      --stroke: rgba(140,170,255,.18);
       --text:#e9edff;
       --muted:rgba(233,237,255,.78);
-      --blue:#3b82f6;
-      --blue2:#60a5fa;
       --shadow: 0 20px 70px rgba(0,0,0,.55);
       --radius: 18px;
       --max: 1100px;
-      /* Cards Gallery */
-.cards-grid{
-  display:grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap:12px;
-  margin-top:16px;
-}
-.card-tile{
-  position:relative;
-  border:1px solid rgba(255,255,255,.10);
-  background: rgba(255,255,255,.04);
-  border-radius: 16px;
-  padding:10px;
-  cursor:pointer;
-  box-shadow: 0 18px 55px rgba(0,0,0,.25);
-  transition: transform .12s ease, border-color .12s ease, background .12s ease;
-}
-.card-tile:hover{
-  transform: translateY(-2px);
-  border-color: rgba(255,255,255,.18);
-  background: rgba(255,255,255,.06);
-}
-.card-tile img{
-  width:100%;
-  height:auto;
-  display:block;
-  border-radius: 12px;
-}
 
-.badge{
-  position:absolute;
-  top:10px;
-  left:10px;
-  padding:6px 10px;
-  border-radius:999px;
-  font-size:12px;
-  font-weight:900;
-  letter-spacing:.5px;
-  border:1px solid rgba(255,255,255,.18);
-  background: rgba(0,0,0,.25);
-  backdrop-filter: blur(10px);
-}
-.badge-common{ box-shadow: 0 0 20px rgba(0,255,153,.12); }
-.badge-rare{ box-shadow: 0 0 20px rgba(0,119,255,.14); }
-.badge-epic{ box-shadow: 0 0 20px rgba(176,102,255,.14); }
-.badge-unique{ box-shadow: 0 0 20px rgba(255,51,102,.14); }
-.badge-legendary{ box-shadow: 0 0 20px rgba(255,213,79,.14); }
-.badge-secret{ box-shadow: 0 0 20px rgba(255,0,0,.10); }
-
-.game-box{
-  margin-top:16px;
-  border-radius: 18px;
-  border:1px solid rgba(255,255,255,.10);
-  background: rgba(255,255,255,.04);
-  padding:16px;
-  box-shadow: 0 18px 55px rgba(0,0,0,.25);
-}
-.game-title{ margin:0 0 8px; font-size:18px; }
-.game-sub{ margin:14px 0 8px; font-size:15px; color: rgba(233,237,255,.92); }
-.game-p{ margin:0 0 10px; line-height:1.9; color: rgba(233,237,255,.78); }
-.game-list{ margin:0 0 12px; padding:0 18px 0 0; line-height:2; color: rgba(233,237,255,.80); }
-.rule-highlight{
-  margin: 12px 0;
-  padding: 12px;
-  border-radius: 14px;
-  border: 1px solid rgba(255,255,255,.12);
-  background: rgba(59,130,246,.12);
-}
-
-/* Lightbox */
-.lightbox{
-  position:fixed;
-  inset:0;
-  display:none;
-  z-index:999;
-}
-.lightbox[aria-hidden="false"]{ display:block; }
-.lightbox-backdrop{
-  position:absolute; inset:0;
-  background: rgba(0,0,0,.70);
-  backdrop-filter: blur(6px);
-}
-.lightbox-panel{
-  position:relative;
-  width:min(92vw, 520px);
-  margin: 6vh auto 0;
-  border-radius: 18px;
-  border: 1px solid rgba(255,255,255,.14);
-  background: rgba(7,10,18,.75);
-  box-shadow: 0 30px 90px rgba(0,0,0,.60);
-  padding: 12px;
-}
-.lightbox-panel img{
-  width:100%;
-  height:auto;
-  display:block;
-  border-radius: 14px;
-}
-.lightbox-close{
-  position:absolute;
-  top:10px; left:10px;
-  width:40px; height:40px;
-  border-radius: 12px;
-  border: 1px solid rgba(255,255,255,.14);
-  background: rgba(255,255,255,.06);
-  color: rgba(233,237,255,.92);
-  font-size: 22px;
-  cursor:pointer;
-}
-
-/* Responsive */
-@media (max-width: 900px){
-  .cards-grid{ grid-template-columns: repeat(2, 1fr); }
-}
-@media (min-width: 901px){
-  .cards-grid{ grid-template-columns: repeat(6, 1fr); }
-}
-
-    
+      --common: rgba(0,255,153,.18);
+      --rare: rgba(0,119,255,.18);
+      --epic: rgba(176,102,255,.18);
+      --unique: rgba(255,51,102,.18);
+      --legendary: rgba(255,213,79,.18);
+      --secret: rgba(255,40,40,.14);
+    }
 
     *{box-sizing:border-box}
     html,body{height:100%}
+    html{scroll-behavior:smooth}
+
     body{
       margin:0;
       font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Tahoma, Arial, sans-serif;
@@ -174,6 +61,7 @@
       gap:10px;
       font-weight:900;
       letter-spacing:.2px;
+      white-space:nowrap;
     }
     .brand-badge{
       width:34px;height:34px;border-radius:12px;
@@ -199,75 +87,8 @@
       background: rgba(255,255,255,.04);
     }
 
-    /* Hero */
-    .hero{
-      position:relative;
-      min-height: 72vh;
-      display:flex;
-      align-items:center;
-      padding: 56px 0 40px;
-    }
-
-    /* الخلفية */
-    .hero::before{
-      content:"";
-      position:absolute;
-      inset:-40px -40px -40px -40px;
-      background:
-        linear-gradient(to bottom, rgba(7,10,18,.30), rgba(7,10,18,.90) 70%),
-        url("assets/hero.png") center/cover no-repeat;
-      filter: saturate(1.05) contrast(1.06);
-      z-index:-2;
-    }
-    .hero::after{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:
-        radial-gradient(900px 500px at 50% 30%, rgba(59,130,246,.22), transparent 60%),
-        radial-gradient(700px 420px at 80% 70%, rgba(96,165,250,.12), transparent 60%);
-      z-index:-1;
-    }
-
-    .hero-card{
-      width:100%;
-      border-radius: 26px;
-      padding: 34px 22px;
-      background: rgba(10,14,26,.50);
-      border: 1px solid rgba(255,255,255,.10);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(14px);
-    }
-
-    .hero-grid{
-      display:grid;
-      grid-template-columns: 1.1fr .9fr;
-      gap:18px;
-      align-items:center;
-    }
-
-    h1{
-      margin:0 0 10px;
-      font-size: clamp(34px, 4vw, 54px);
-      line-height:1.05;
-      letter-spacing:.2px;
-      text-shadow: 0 18px 45px rgba(0,0,0,.45);
-    }
-    .subtitle{
-      margin:0 0 18px;
-      color: var(--muted);
-      font-size: 15.5px;
-      line-height: 1.9;
-      max-width: 62ch;
-    }
-
-    .cta-row{
-      display:flex;
-      gap:12px;
-      flex-wrap:wrap;
-      align-items:center;
-      margin-top: 14px;
-    }
+    /* Buttons */
+    .cta-row{display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin-top: 14px;}
     .btn{
       display:inline-flex;
       align-items:center;
@@ -290,29 +111,68 @@
     .btn-primary{
       background: linear-gradient(135deg, rgba(59,130,246,1), rgba(96,165,250,.9));
       border-color: rgba(255,255,255,.18);
-      box-shadow: 0 18px 40px rgba(59,130,246,.20);
+      box-shadow: 0 18px 40px rgba(59,130,246,.18);
     }
     .btn-primary:hover{
       background: linear-gradient(135deg, rgba(59,130,246,1), rgba(96,165,250,1));
     }
 
-    .pill{
-      display:inline-flex;
-      gap:10px;
-      flex-wrap:wrap;
-      margin-top: 16px;
-      color: rgba(233,237,255,.78);
-      font-size: 13px;
+    /* Hero */
+    .hero{
+      position:relative;
+      min-height: 72vh;
+      display:flex;
+      align-items:center;
+      padding: 56px 0 40px;
     }
-    .pill a{
-      text-decoration:none;
-      padding: 8px 10px;
-      border-radius: 999px;
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:-40px -40px -40px -40px;
+      background:
+        linear-gradient(to bottom, rgba(7,10,18,.30), rgba(7,10,18,.90) 70%),
+        url("assets/hero.png") center/cover no-repeat;
+      filter: saturate(1.05) contrast(1.06);
+      z-index:-2;
+    }
+    .hero::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(900px 500px at 50% 30%, rgba(59,130,246,.22), transparent 60%),
+        radial-gradient(700px 420px at 80% 70%, rgba(96,165,250,.12), transparent 60%);
+      z-index:-1;
+    }
+    .hero-card{
+      width:100%;
+      border-radius: 26px;
+      padding: 34px 22px;
+      background: rgba(10,14,26,.50);
       border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.04);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
     }
-    .pill a:hover{background: rgba(255,255,255,.06)}
-
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap:18px;
+      align-items:center;
+    }
+    h1{
+      margin:0 0 10px;
+      font-size: clamp(34px, 4vw, 54px);
+      line-height:1.05;
+      letter-spacing:.2px;
+      text-shadow: 0 18px 45px rgba(0,0,0,.45);
+    }
+    .subtitle{
+      margin:0 0 18px;
+      color: var(--muted);
+      font-size: 15.5px;
+      line-height: 1.95;
+      max-width: 62ch;
+    }
     .hero-side{
       border-radius: var(--radius);
       border: 1px solid rgba(255,255,255,.10);
@@ -336,23 +196,20 @@
       margin: 10px 0 0;
       color: rgba(233,237,255,.70);
       font-size: 13px;
-      line-height: 1.7;
+      line-height: 1.75;
     }
 
     /* Sections */
     section{padding: 34px 0}
-    .section-title{
-      margin:0 0 12px;
-      font-size: 22px;
-      letter-spacing:.2px;
-    }
+    .section-title{margin:0 0 12px; font-size: 22px; letter-spacing:.2px;}
     .section-sub{
       margin:0 0 18px;
       color: rgba(233,237,255,.72);
-      line-height:1.9;
+      line-height:1.95;
       font-size: 14.5px;
-      max-width: 75ch;
+      max-width: 78ch;
     }
+
     .grid{
       display:grid;
       grid-template-columns: repeat(3, 1fr);
@@ -369,9 +226,7 @@
     .card p{margin:0; color: rgba(233,237,255,.72); font-size: 13.5px; line-height:1.85}
 
     /* Social */
-    .social{
-      display:flex; gap:10px; flex-wrap:wrap;
-    }
+    .social{display:flex; gap:10px; flex-wrap:wrap;}
     .social a{
       text-decoration:none;
       padding: 9px 12px;
@@ -382,19 +237,186 @@
     }
     .social a:hover{background: rgba(255,255,255,.06)}
 
-    /* Footer */
-    footer{
-      padding: 28px 0 40px;
-      border-top: 1px solid rgba(255,255,255,.08);
-      color: rgba(233,237,255,.65);
-      font-size: 13px;
+    /* Hide duplicate pills on PC (optional) */
+    @media (min-width: 901px){
+      .pill{display:none;}
     }
-    .footer-row{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
+
+    /* Cards Gallery (Luna Fantasy) */
+    .cards-grid{
+      display:grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap:12px;
+      margin-top:16px;
+    }
+    .card-tile{
+      position:relative;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      border-radius: 16px;
+      padding:10px;
+      cursor:pointer;
+      box-shadow: 0 18px 55px rgba(0,0,0,.25);
+      transition: transform .12s ease, border-color .12s ease, background .12s ease;
+    }
+    .card-tile:hover{
+      transform: translateY(-2px);
+      border-color: rgba(255,255,255,.18);
+      background: rgba(255,255,255,.06);
+    }
+    .card-tile img{
+      width:100%;
+      height:auto;
+      display:block;
+      border-radius: 12px;
+    }
+    .badge{
+      position:absolute;
+      top:10px;
+      right:10px;
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:900;
+      letter-spacing:.5px;
+      border:1px solid rgba(255,255,255,.18);
+      background: rgba(0,0,0,.25);
+      backdrop-filter: blur(10px);
+    }
+    .badge-common{ box-shadow: 0 0 24px var(--common); }
+    .badge-rare{ box-shadow: 0 0 24px var(--rare); }
+    .badge-epic{ box-shadow: 0 0 24px var(--epic); }
+    .badge-unique{ box-shadow: 0 0 24px var(--unique); }
+    .badge-legendary{ box-shadow: 0 0 24px var(--legendary); }
+    .badge-secret{ box-shadow: 0 0 24px var(--secret); }
+
+    .game-box{
+      margin-top:16px;
+      border-radius: 18px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      padding:16px;
+      box-shadow: 0 18px 55px rgba(0,0,0,.25);
+    }
+    .game-title{ margin:0 0 8px; font-size:18px; }
+    .game-sub{ margin:14px 0 8px; font-size:15px; color: rgba(233,237,255,.92); }
+    .game-p{ margin:0 0 10px; line-height:1.95; color: rgba(233,237,255,.78); }
+    .game-list{ margin:0 0 12px; padding:0 18px 0 0; line-height:2; color: rgba(233,237,255,.80); }
+    .rule-highlight{
+      margin: 12px 0;
+      padding: 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(59,130,246,.12);
+      font-weight:900;
+    }
+
+    /* Characters */
+    .characters-grid{
+      display:grid;
+      grid-template-columns: repeat(5, 1fr);
       gap: 12px;
-      flex-wrap:wrap;
+      margin-top: 14px;
+    }
+    .char-card{
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      box-shadow: 0 18px 55px rgba(0,0,0,.25);
+      overflow:hidden;
+    }
+    .char-media{
+      position:relative;
+      aspect-ratio: 4 / 5;
+      background:
+        radial-gradient(600px 260px at 50% 25%, rgba(59,130,246,.18), transparent 55%),
+        linear-gradient(to bottom, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .char-media img{
+      width:100%;
+      height:100%;
+      object-fit: cover;
+      display:block;
+      filter: saturate(1.03) contrast(1.02);
+    }
+    .char-badge{
+      position:absolute;
+      top:10px; right:10px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 900;
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(0,0,0,.28);
+      backdrop-filter: blur(10px);
+    }
+    .char-body{padding: 14px;}
+    .char-title{margin:0 0 6px; font-size: 15px; font-weight: 900;}
+    .char-sub{margin:0; color: rgba(233,237,255,.72); font-size: 13.5px; line-height: 1.85;}
+    .hint{
+      margin-top: 14px;
+      padding: 12px 14px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(7,10,18,.35);
+      color: rgba(233,237,255,.75);
+      line-height: 1.95;
+    }
+    .mini{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding: 8px 10px;
+      border-radius: 12px;
+      font-size: 12.5px;
+      font-weight: 900;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      text-decoration:none;
+    }
+    .mini:hover{background: rgba(255,255,255,.06)}
+    .mini-row{display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;}
+
+    /* Lightbox */
+    .lightbox{
+      position:fixed;
+      inset:0;
+      display:none;
+      z-index:999;
+    }
+    .lightbox[aria-hidden="false"]{ display:block; }
+    .lightbox-backdrop{
+      position:absolute; inset:0;
+      background: rgba(0,0,0,.70);
+      backdrop-filter: blur(6px);
+    }
+    .lightbox-panel{
+      position:relative;
+      width:min(92vw, 520px);
+      margin: 6vh auto 0;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(7,10,18,.75);
+      box-shadow: 0 30px 90px rgba(0,0,0,.60);
+      padding: 12px;
+    }
+    .lightbox-panel img{
+      width:100%;
+      height:auto;
+      display:block;
+      border-radius: 14px;
+    }
+    .lightbox-close{
+      position:absolute;
+      top:10px; left:10px;
+      width:40px; height:40px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color: rgba(233,237,255,.92);
+      font-size: 22px;
+      cursor:pointer;
     }
 
     /* Responsive */
@@ -403,14 +425,13 @@
       .grid{grid-template-columns: 1fr}
       .nav{display:none}
       .hero{min-height:auto}
+      .cards-grid{ grid-template-columns: repeat(2, 1fr); }
+      .characters-grid{grid-template-columns: repeat(2, 1fr);}
     }
-/* اخفاء الازرار المكررة على البي سي */
-@media (min-width: 901px){
-  .pill{display:none;}
-}
-
-    /* Smooth scroll */
-    html{scroll-behavior:smooth}
+    @media (min-width: 901px){
+      .cards-grid{ grid-template-columns: repeat(6, 1fr); }
+      .characters-grid{grid-template-columns: repeat(5, 1fr);}
+    }
   </style>
 </head>
 
@@ -425,7 +446,7 @@
       <div class="nav">
         <a href="#overview">نظرة عامة</a>
         <a href="#story">قصة لونا</a>
-        <a href="#fantasy">لونا فانتاسي</a>
+        <a href="#fantasy">لونا فانتسي</a>
         <a href="#characters">شخصياتنا</a>
       </div>
     </div>
@@ -439,18 +460,21 @@
             <div>
               <h1>Luna Fantasy</h1>
               <p class="subtitle">
-                لونا عالم فانتازيا ضخم متكامل بشخصيات عديدة من رواية لونا المبنية على رواية حقيقية وتحولت الى مزيج مابين الحقيقة ونسج من الخيال طورناها علي منصة ديسكورد في هيئة مجتمع متكامل ومكان للعب وتقمص الأدوار.
+                لونا عالم فانتازيا ضخم متكامل بشخصيات عديدة من رواية لونا المبنية على رواية حقيقية وتحولت إلى مزيج ما بين الحقيقة ونسجٍ من الخيال،
+                طورناها على منصة ديسكورد في هيئة مجتمع متكامل ومكان للعب وتقمص الأدوار.
               </p>
 
               <div class="cta-row" id="join">
                 <a class="btn btn-primary" href="https://discord.gg/lunarian" target="_blank" rel="noopener">انضم للديسكورد</a>
-                <a class="btn" href="#overview">إبدأ هنا</a>
+                <a class="btn" href="#overview">ابدأ هنا</a>
               </div>
 
-              <div class="pill">
-                <a href="#story">قصة لونا</a>
-                <a href="#fantasy">لونا فانتاسي</a>
-                <a href="#characters">شخصياتنا</a>
+              <div class="note" style="margin-top:14px">
+                تابعنا على:
+              </div>
+              <div class="social" style="margin-top:10px">
+                <a href="https://www.instagram.com/luna.passage?igsh=dmVzdGtscWJ2cW91" target="_blank" rel="noopener">Instagram</a>
+                <a href="https://www.tiktok.com/@luna.passage?_r=1&_t=ZS-92gBHpRbSNT" target="_blank" rel="noopener">TikTok</a>
               </div>
             </div>
 
@@ -460,12 +484,8 @@
               <div class="stat"><b>المحتوى</b><span>قصة · مجتمع · لعب أدوار</span></div>
 
               <p class="note">
-                تابعنا على:
+                عالم واحد… قصص متعددة… وأكثر من 200 شخصية تُبنى وتظهر داخل الأحداث بوقتها.
               </p>
-              <div class="social" style="margin-top:10px">
-                <a href="https://www.instagram.com/luna.passage?igsh=dmVzdGtscWJ2cW91" target="_blank" rel="noopener">Instagram</a>
-                <a href="https://www.tiktok.com/@luna.passage?_r=1&_t=ZS-92gBHpRbSNT" target="_blank" rel="noopener">TikTok</a>
-              </div>
             </div>
           </div>
         </div>
@@ -476,21 +496,22 @@
       <div class="wrap">
         <h2 class="section-title">مقدمة</h2>
         <p class="section-sub">
-          هنا نبدأ من الأساس: عالم Luna، فكرته، ولماذا المجتمع مختلف. هذا القسم نقدر نطوره بكرة بإضافة صور، فيديو تريلر، وروابط أقسام داخلية.
+          هذا هو الموقع الرسمي لـ <b>Luna Fantasy</b>. هنا بنعرض القصة، نظام اللعبة، والكروت،
+          ومع الوقت راح يصير عندك مركز كامل لعالم Luna — مرتب، واضح، وفخم.
         </p>
 
         <div class="grid">
           <div class="card">
             <h3>قصة لونا</h3>
-            <p>ملخص سريع يمهّد للقصة، الشخصيات، وامتداد العالم بين الواقع والخيال.</p>
+            <p>مدخل رسمي للقصة… وسرد يربط الواقع بالخيال بطريقة متماسكة.</p>
           </div>
           <div class="card">
-            <h3>لونا فانتاسي</h3>
-            <p>مكان اللعب والتجارب والأنشطة داخل الديسكورد، وتطوير التجربة مع الوقت.</p>
+            <h3>لونا فانتسي</h3>
+            <p>شرح اللعبة + الكروت + طريقة اللعب، مع توسعات تدريجية داخل السيرفر.</p>
           </div>
           <div class="card">
             <h3>شخصياتنا</h3>
-            <p>عرض الشخصيات الرئيسية والهوية البصرية، وبناء صفحات مخصصة لكل شخصية لاحقًا.</p>
+            <p>الواجهات الأساسية أولاً… وبانضمامك بتكتشف باقي الشخصيات تدريجيًا داخل الأحداث.</p>
           </div>
         </div>
       </div>
@@ -500,94 +521,219 @@
       <div class="wrap">
         <h2 class="section-title">قصة لونا</h2>
         <p class="section-sub">
-          هذا مكان القصة الرسمي. بكرة نضيف هنا ملخص مرتب (مقاطع قصيرة) مع صور مرافقة.
+          هذا القسم بنطوره لاحقًا: ملخص مرتب، خطوط زمنية، ومقتطفات فخمة. الحين ركّزنا على تأسيس الموقع بشكل قوي.
         </p>
       </div>
     </section>
 
-   <section id="fantasy">
-  <div class="wrap">
-    <h2 class="section-title">لونا فانتاسي</h2>
-    <p class="section-sub">
-      هنا شرح اللعبة الرسمي + عرض ترتيب الكروت. اضغط على أي كرت عشان يكبر.
-    </p>
+    <section id="fantasy">
+      <div class="wrap">
+        <h2 class="section-title">لونا فانتسي</h2>
+        <p class="section-sub">
+          الكروت هنا مرتبة حسب الفئات. اضغط على أي كرت عشان يكبر.
+        </p>
 
-    <!-- Cards Gallery -->
-    <div class="cards-grid" aria-label="Luna Fantasy Cards">
-      <button class="card-tile" data-full="assets/cards/common.png" aria-label="Common card">
-        <span class="badge badge-common">COMMON</span>
-        <img src="assets/cards/common.png" alt="Common card" loading="lazy">
-      </button>
+        <div class="cards-grid" aria-label="Luna Fantasy Cards">
+          <button class="card-tile" data-full="assets/cards/common.png" aria-label="Common card">
+            <span class="badge badge-common">COMMON</span>
+            <img src="assets/cards/common.png" alt="Common card" loading="lazy">
+          </button>
 
-      <button class="card-tile" data-full="assets/cards/rare.png" aria-label="Rare card">
-        <span class="badge badge-rare">RARE</span>
-        <img src="assets/cards/rare.png" alt="Rare card" loading="lazy">
-      </button>
+          <button class="card-tile" data-full="assets/cards/rare.png" aria-label="Rare card">
+            <span class="badge badge-rare">RARE</span>
+            <img src="assets/cards/rare.png" alt="Rare card" loading="lazy">
+          </button>
 
-      <button class="card-tile" data-full="assets/cards/epic.png" aria-label="Epic card">
-        <span class="badge badge-epic">EPIC</span>
-        <img src="assets/cards/epic.png" alt="Epic card" loading="lazy">
-      </button>
+          <button class="card-tile" data-full="assets/cards/epic.png" aria-label="Epic card">
+            <span class="badge badge-epic">EPIC</span>
+            <img src="assets/cards/epic.png" alt="Epic card" loading="lazy">
+          </button>
 
-      <button class="card-tile" data-full="assets/cards/unique.png" aria-label="Unique card">
-        <span class="badge badge-unique">UNIQUE</span>
-        <img src="assets/cards/unique.png" alt="Unique card" loading="lazy">
-      </button>
+          <button class="card-tile" data-full="assets/cards/unique.png" aria-label="Unique card">
+            <span class="badge badge-unique">UNIQUE</span>
+            <img src="assets/cards/unique.png" alt="Unique card" loading="lazy">
+          </button>
 
-      <button class="card-tile" data-full="assets/cards/legendary.png" aria-label="Legendary card">
-        <span class="badge badge-legendary">LEGENDARY</span>
-        <img src="assets/cards/legendary.png" alt="Legendary card" loading="lazy">
-      </button>
+          <button class="card-tile" data-full="assets/cards/legendary.png" aria-label="Legendary card">
+            <span class="badge badge-legendary">LEGENDARY</span>
+            <img src="assets/cards/legendary.png" alt="Legendary card" loading="lazy">
+          </button>
 
-      <button class="card-tile" data-full="assets/cards/secret.png" aria-label="Secret card">
-        <span class="badge badge-secret">SECRET</span>
-        <img src="assets/cards/secret.png" alt="Secret card" loading="lazy">
-      </button>
-    </div>
+          <button class="card-tile" data-full="assets/cards/secret.png" aria-label="Secret card">
+            <span class="badge badge-secret">SECRET</span>
+            <img src="assets/cards/secret.png" alt="Secret card" loading="lazy">
+          </button>
+        </div>
 
-    <!-- Game description -->
-    <div class="game-box">
-      <h3 class="game-title">ماهي لونا فانتاسي؟</h3>
-      <p class="game-p">
-        بكل بساطة هذه اللعبة من تصميمنا واختراعنا وهي لعبة جديدة كلياً غير منسوخة ولها طابعها الخاص وتعتمد على العقل وليس بقوة الكرت.
-      </p>
+        <div class="game-box">
+          <h3 class="game-title">ماهي لونا فانتاسي؟</h3>
+          <p class="game-p">
+            بكل بساطة هذه اللعبة من تصميمنا واختراعنا وهي لعبة جديدة كلياً غير منسوخة ولها طابعها الخاص وتعتمد على العقل وليس بقوة الكرت.
+          </p>
 
-      <h4 class="game-sub">طريقة اللعبة:</h4>
-      <p class="game-p">كل لاعب له خمس كروت، وأربعة منها إجبارية:</p>
+          <h4 class="game-sub">طريقة اللعبة:</h4>
+          <p class="game-p">كل لاعب له خمس كروت، وأربعة منها إجبارية:</p>
 
-      <ul class="game-list">
-        <li><b>Common</b> كرت</li>
-        <li><b>Rare</b> كرت</li>
-        <li><b>Epic</b> كرت</li>
-        <li><b>Unique</b> كرت</li>
-      </ul>
+          <ul class="game-list">
+            <li><b>Common</b> كرت</li>
+            <li><b>Rare</b> كرت</li>
+            <li><b>Epic</b> كرت</li>
+            <li><b>Unique</b> كرت</li>
+          </ul>
 
-      <p class="game-p">
-        هذي الكروت الإجبارية لكل لاعب، ولكن الكرت الخامس راح يكون كرت عشوائي
-        إما من الفئات السابقة أو فئات أخرى مثل <b>الأسطورية</b> و<b>السرية</b> و<b>الخاصة</b>.
-      </p>
+          <p class="game-p">
+            هذي الكروت الإجبارية لكل لاعب، ولكن الكرت الخامس راح يكون كرت عشوائي
+            إما من الفئات السابقة أو فئات أخرى مثل <b>الأسطورية</b> و<b>السرية</b> و<b>الخاصة</b>.
+          </p>
 
-      <div class="rule-highlight">
-        <b>الفائز هو اللي يفوز بثلاث جولات من أصل خمسة.</b>
+          <div class="rule-highlight">
+            الفائز هو اللي يفوز بثلاث جولات من أصل خمسة.
+          </div>
+
+          <p class="game-p">
+            دمج الكروت متفاوت ومختلف — احسب كروت خصمك وراقب الفئات اللي لعبها وقرر الكرت اللي بتلعبه بذكاء.
+          </p>
+
+          <p class="game-p">
+            ترتيب الكروت: <b>Common</b> ثم <b>Rare</b> ثم <b>Epic</b> ثم <b>Unique</b> ثم <b>Legendary</b> وآخر شي <b>Secret</b>.
+          </p>
+        </div>
       </div>
 
-      <p class="game-p">
-        دمج الكروت متفاوت ومختلف — احسب كروت خصمك وراقب الفئات اللي لعبها وقرر الكرت اللي بتلعبه بذكاء.
-      </p>
+      <!-- Lightbox -->
+      <div class="lightbox" id="lightbox" aria-hidden="true">
+        <div class="lightbox-backdrop" data-close="1"></div>
+        <div class="lightbox-panel" role="dialog" aria-modal="true" aria-label="Card preview">
+          <button class="lightbox-close" data-close="1" aria-label="إغلاق">×</button>
+          <img id="lightboxImg" alt="Card preview" />
+        </div>
+      </div>
+    </section>
 
-      <p class="game-p">
-        ترتيب الكروت: <b>Common</b> ثم <b>Rare</b> ثم <b>Epic</b> ثم <b>Unique</b> ثم <b>Legendary</b> وآخر شي <b>Secret</b>.
-      </p>
+    <section id="characters">
+      <div class="wrap">
+        <h2 class="section-title">شخصياتنا</h2>
+
+        <p class="section-sub">
+          عالم <b>Luna</b> مو مجرد قصة — هو منظومة كاملة بأكثر من <b>200 شخصية</b> من جميع الأطياف، كلها تعيش داخل عالم واحد مترابط.
+          بالبداية، هذه هي الواجهات الأساسية… ومع دخولك للسيرفر بتبدأ تكتشف البقية تدريجيًا داخل الأحداث واللعب وتقمّص الأدوار.
+        </p>
+
+        <div class="characters-grid">
+          <div class="char-card">
+            <div class="char-media">
+              <span class="char-badge">الواجهة الأساسية</span>
+              <img src="assets/characters/mastermind.png" alt="Mastermind" loading="lazy">
+            </div>
+            <div class="char-body">
+              <h3 class="char-title">Mastermind</h3>
+              <p class="char-sub">العقل المدبّر. نقطة الاتزان بين القوى… واليد التي تحرّك الخيوط حين يصمت الجميع.</p>
+            </div>
+          </div>
+
+          <div class="char-card">
+            <div class="char-media">
+              <span class="char-badge">الحُرّاس</span>
+              <img src="assets/characters/luna-sentinel.png" alt="Luna Sentinel" loading="lazy">
+            </div>
+            <div class="char-body">
+              <h3 class="char-title">Luna Sentinel</h3>
+              <p class="char-sub">حارس Luna الأول. رمز الانضباط والهيبة، والدرع الذي لا ينكسر.</p>
+            </div>
+          </div>
+
+          <div class="char-card">
+            <div class="char-media">
+              <span class="char-badge">الحُرّاس</span>
+              <img src="assets/characters/luna-guardian.png" alt="Luna Guardian" loading="lazy">
+            </div>
+            <div class="char-body">
+              <h3 class="char-title">Luna Guardian</h3>
+              <p class="char-sub">حارس الأسرار والبوابات. صلابة لا تُساوم… وخطوة واحدة منه تغيّر مسار المعركة.</p>
+            </div>
+          </div>
+
+          <div class="char-card">
+            <div class="char-media">
+              <span class="char-badge">الفرسان</span>
+              <img src="assets/characters/luna-knight.png" alt="Luna Knight" loading="lazy">
+            </div>
+            <div class="char-body">
+              <h3 class="char-title">Luna Knight</h3>
+              <p class="char-sub">فارس Luna. حضور ثقيل، قرار حاسم، وسيف لا يرحم عند لحظة الحكم.</p>
+            </div>
+          </div>
+
+          <div class="char-card">
+            <div class="char-media">
+              <span class="char-badge">النبلاء</span>
+              <img src="assets/characters/luna-noble.png" alt="Luna Noble" loading="lazy">
+            </div>
+            <div class="char-body">
+              <h3 class="char-title">Luna Noble</h3>
+              <p class="char-sub">النخبة. أسلوب راقٍ… لكن وراءه نفوذ، قواعد، ووزن اجتماعي داخل العالم.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="hint">
+          <b>كيف تكتشف باقي الشخصيات؟</b><br/>
+          عند انضمامك إلى سيرفرنا على منصة الديسكورد، راح تبدأ تتعرّف على جميع الشخصيات تدريجيًا داخل القصة، الأحداث، وتقمّص الأدوار.
+          كل شخصية لها مسارها، تفاعلها، وأثرها داخل عالم Luna.
+          <div class="mini-row">
+            <a class="mini" href="https://discord.gg/lunarian" target="_blank" rel="noopener">انضم للديسكورد</a>
+            <a class="mini" href="https://www.instagram.com/luna.passage?igsh=dmVzdGtscWJ2cW91" target="_blank" rel="noopener">Instagram</a>
+            <a class="mini" href="https://www.tiktok.com/@luna.passage?_r=1&_t=ZS-92gBHpRbSNT" target="_blank" rel="noopener">TikTok</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap" style="padding:28px 0 40px; border-top:1px solid rgba(255,255,255,.08); color:rgba(233,237,255,.65); font-size:13px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap;">
+        <div>© Luna Fantasy</div>
+        <div class="social">
+          <a href="https://www.instagram.com/luna.passage?igsh=dmVzdGtscWJ2cW91" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.tiktok.com/@luna.passage?_r=1&_t=ZS-92gBHpRbSNT" target="_blank" rel="noopener">TikTok</a>
+        </div>
+      </div>
     </div>
-  </div>
+  </footer>
 
-  <!-- Lightbox -->
-  <div class="lightbox" id="lightbox" aria-hidden="true">
-    <div class="lightbox-backdrop" data-close="1"></div>
-    <div class="lightbox-panel" role="dialog" aria-modal="true" aria-label="Card preview">
-      <button class="lightbox-close" data-close="1" aria-label="إغلاق">×</button>
-      <img id="lightboxImg" alt="Card preview" />
-    </div>
-  </div>
-</section>
+  <script>
+    (function(){
+      const lb = document.getElementById('lightbox');
+      const img = document.getElementById('lightboxImg');
 
+      function openLightbox(src){
+        img.src = src;
+        lb.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      }
+      function closeLightbox(){
+        lb.setAttribute('aria-hidden', 'true');
+        img.src = '';
+        document.body.style.overflow = '';
+      }
+
+      document.querySelectorAll('.card-tile').forEach(btn=>{
+        btn.addEventListener('click', ()=> openLightbox(btn.dataset.full));
+      });
+
+      lb.addEventListener('click', (e)=>{
+        if(e.target && e.target.dataset && e.target.dataset.close === '1'){
+          closeLightbox();
+        }
+      });
+
+      document.addEventListener('keydown', (e)=>{
+        if(e.key === 'Escape' && lb.getAttribute('aria-hidden') === 'false'){
+          closeLightbox();
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
