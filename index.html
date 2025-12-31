@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Luna Fantasy</title>
-  <meta name="description" content="لونا فانتاسي — عالم فانتازيا ضخم متكامل على منصة ديسكورد." />
+  <meta name="description" content="لونا فانتسي — عالم فانتازيا ضخم متكامل على منصة ديسكورد." />
 
   <style>
     :root{
@@ -58,6 +58,7 @@
 
     .brand{
       display:flex;
+      flex-direction: row-reverse; /* يخلي اللوقو يمين الاسم مثل اللي عندك */
       align-items:center;
       gap:10px;
       font-weight:900;
@@ -65,26 +66,25 @@
       white-space:nowrap;
     }
 
-   .brand-badge{
-    width:34px;height:34px;border-radius:12px;
-    border:1px solid rgba(255,255,255,.14);
-    background: rgba(7,10,18,.25);
-    box-shadow: 0 10px 28px rgba(59,130,246,.22);
-    overflow:hidden;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    flex:0 0 auto;
-   }
-
-.brand-img{
-  width:28px;
-  height:28px;
-  object-fit: contain;
-  display:block;
-  filter: drop-shadow(0 0 10px rgba(96,165,250,.45));
-}
-
+    /* ✅ Logo as IMAGE with fallback */
+    .brand-badge{
+      width:34px;height:34px;border-radius:12px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(7,10,18,.25);
+      box-shadow: 0 10px 28px rgba(59,130,246,.22);
+      overflow:hidden;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex:0 0 auto;
+    }
+    .brand-img{
+      width:28px;
+      height:28px;
+      object-fit: contain;
+      display:block;
+      filter: drop-shadow(0 0 10px rgba(96,165,250,.45));
+    }
 
     .nav{
       display:flex; gap:10px; align-items:center;
@@ -103,7 +103,7 @@
       background: rgba(255,255,255,.04);
     }
 
-    /* ✅ Social only in Topbar */
+    /* ✅ Social only in Topbar (with icons) */
     .top-social{
       display:flex;
       gap:10px;
@@ -505,7 +505,11 @@
 
       <div class="brand">
         <div class="brand-badge" aria-hidden="true">
-          <img class="brand-img" src="assets/logo.png?v=2" alt="Luna Logo">
+          <!-- ✅ tries assets/logo.png then root logo.png then hides -->
+          <img class="brand-img"
+               src="assets/logo.png?v=7"
+               alt="Luna Logo"
+               onerror="this.onerror=null;this.src='logo.png?v=7'; this.onerror=function(){this.style.display='none';};">
         </div>
         <div>Luna Fantasy</div>
       </div>
