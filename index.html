@@ -1,63 +1,425 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Luna Fantasy</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Luna Fantasy — dark fantasy universe of cards, lore, and community." />
   <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0b0f1a;
-      color: #e6ebff;
-      text-align: center;
+    :root{
+      --bg:#070a12;
+      --panel: rgba(10,14,26,.55);
+      --stroke: rgba(140,170,255,.18);
+      --text:#e9edff;
+      --muted:rgba(233,237,255,.75);
+      --blue:#3b82f6;
+      --blue2:#60a5fa;
+      --shadow: 0 20px 70px rgba(0,0,0,.55);
+      --radius: 18px;
+      --max: 1100px;
     }
-    header {
-      padding: 80px 20px;
-      background: radial-gradient(circle at top, #1a2a6c, #0b0f1a);
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--text);
+      background: radial-gradient(1200px 700px at 50% 10%, rgba(59,130,246,.25), transparent 60%),
+                  radial-gradient(900px 600px at 15% 85%, rgba(96,165,250,.18), transparent 60%),
+                  var(--bg);
+      overflow-x:hidden;
     }
-    h1 {
-      font-size: 3rem;
+
+    a{color:inherit}
+    .wrap{max-width:var(--max); margin:0 auto; padding:0 18px}
+
+    /* Top bar */
+    .topbar{
+      position:sticky;
+      top:0;
+      z-index:50;
+      backdrop-filter: blur(14px);
+      background: rgba(7,10,18,.55);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .topbar-inner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      padding:14px 0;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-weight:800;
+      letter-spacing:.3px;
+    }
+    .brand-badge{
+      width:34px;height:34px;border-radius:12px;
+      background: linear-gradient(135deg, rgba(59,130,246,.95), rgba(96,165,250,.55));
+      box-shadow: 0 10px 28px rgba(59,130,246,.25);
+      border:1px solid rgba(255,255,255,.12);
+    }
+    .nav{
+      display:flex; gap:12px; align-items:center;
+      color: rgba(233,237,255,.78);
+      font-size:14px;
+    }
+    .nav a{
+      text-decoration:none;
+      padding:8px 10px;
+      border-radius:10px;
+      border:1px solid transparent;
+    }
+    .nav a:hover{
+      border-color: rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+    }
+
+    /* Hero */
+    .hero{
+      position:relative;
+      min-height: 72vh;
+      display:flex;
+      align-items:center;
+      padding: 56px 0 40px;
+    }
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:-40px -40px -40px -40px;
+      background:
+        linear-gradient(to bottom, rgba(7,10,18,.25), rgba(7,10,18,.88) 70%),
+        url("assets/hero.jpg") center/cover no-repeat;
+      filter: saturate(1.05) contrast(1.05);
+      z-index:-2;
+    }
+    .hero::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(900px 500px at 50% 30%, rgba(59,130,246,.28), transparent 60%),
+        radial-gradient(700px 420px at 80% 70%, rgba(96,165,250,.16), transparent 60%);
+      z-index:-1;
+    }
+
+    .hero-card{
+      width:100%;
+      border-radius: 26px;
+      padding: 34px 22px;
+      background: rgba(10,14,26,.50);
+      border: 1px solid rgba(255,255,255,.10);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+    }
+
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap:18px;
+      align-items:center;
+    }
+
+    h1{
+      margin:0 0 10px;
+      font-size: clamp(34px, 4vw, 54px);
+      line-height:1.05;
+      letter-spacing:.2px;
+      text-shadow: 0 18px 45px rgba(0,0,0,.45);
+    }
+    .subtitle{
+      margin:0 0 18px;
+      color: var(--muted);
+      font-size: 15.5px;
+      line-height: 1.7;
+      max-width: 56ch;
+    }
+
+    .cta-row{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      align-items:center;
+      margin-top: 14px;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding: 12px 18px;
+      border-radius: 14px;
+      font-weight: 800;
+      text-decoration:none;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+    }
+    .btn:hover{transform: translateY(-1px); border-color: rgba(255,255,255,.18); background: rgba(255,255,255,.08);}
+    .btn-primary{
+      background: linear-gradient(135deg, rgba(59,130,246,1), rgba(96,165,250,.9));
+      border-color: rgba(255,255,255,.18);
+      box-shadow: 0 18px 40px rgba(59,130,246,.24);
+    }
+    .btn-primary:hover{background: linear-gradient(135deg, rgba(59,130,246,1), rgba(96,165,250,1));}
+    .pill{
+      display:inline-flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top: 16px;
+      color: rgba(233,237,255,.78);
+      font-size: 13px;
+    }
+    .pill span{
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+    }
+
+    .hero-side{
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(7,10,18,.35);
+      padding: 18px;
+    }
+    .stat{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.03);
       margin-bottom: 10px;
+      font-size: 14px;
+      color: rgba(233,237,255,.82);
     }
-    p {
-      max-width: 600px;
-      margin: auto;
+    .stat b{color: var(--text)}
+    .note{
+      margin: 10px 0 0;
+      color: rgba(233,237,255,.70);
+      font-size: 13px;
       line-height: 1.6;
-      opacity: 0.9;
     }
-    a.button {
-      display: inline-block;
-      margin-top: 30px;
-      padding: 14px 28px;
-      background: #3b82f6;
-      color: white;
-      text-decoration: none;
-      border-radius: 8px;
-      font-weight: bold;
+
+    /* Sections */
+    section{padding: 34px 0}
+    .section-title{
+      margin:0 0 12px;
+      font-size: 22px;
+      letter-spacing:.2px;
     }
-    footer {
-      margin-top: 80px;
-      padding: 20px;
-      font-size: 0.9rem;
-      opacity: 0.6;
+    .section-sub{
+      margin:0 0 18px;
+      color: rgba(233,237,255,.72);
+      line-height:1.7;
+      font-size: 14.5px;
+      max-width: 70ch;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    .card{
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      padding: 16px;
+      box-shadow: 0 18px 55px rgba(0,0,0,.25);
+    }
+    .card h3{margin:0 0 8px; font-size: 15px}
+    .card p{margin:0; color: rgba(233,237,255,.72); font-size: 13.5px; line-height:1.65}
+
+    /* Media */
+    .media-grid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 12px;
+      align-items:stretch;
+    }
+    .media-frame{
+      border-radius: var(--radius);
+      overflow:hidden;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      min-height: 280px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color: rgba(233,237,255,.65);
+      font-size: 14px;
+      padding: 16px;
+    }
+    .media-frame iframe{
+      width:100%;
+      height: 100%;
+      min-height: 280px;
+      border:0;
+    }
+
+    /* Footer */
+    footer{
+      padding: 28px 0 40px;
+      border-top: 1px solid rgba(255,255,255,.08);
+      color: rgba(233,237,255,.65);
+      font-size: 13px;
+    }
+    .footer-row{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap: 12px;
+      flex-wrap:wrap;
+    }
+    .social{
+      display:flex; gap:10px; flex-wrap:wrap;
+    }
+    .social a{
+      text-decoration:none;
+      padding: 9px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+    }
+    .social a:hover{background: rgba(255,255,255,.06)}
+
+    /* Responsive */
+    @media (max-width: 900px){
+      .hero-grid{grid-template-columns: 1fr}
+      .grid{grid-template-columns: 1fr}
+      .media-grid{grid-template-columns: 1fr}
+      .nav{display:none}
+      .hero{min-height:auto}
     }
   </style>
 </head>
+
 <body>
+  <div class="topbar">
+    <div class="wrap topbar-inner">
+      <div class="brand">
+        <div class="brand-badge"></div>
+        <div>Luna Fantasy</div>
+      </div>
+      <div class="nav">
+        <a href="#about">About</a>
+        <a href="#media">Media</a>
+        <a href="#join">Join</a>
+      </div>
+    </div>
+  </div>
 
-<header>
-  <h1>Luna Fantasy</h1>
-  <p>
-    A dark fantasy universe of cards, lore, and community.
-    Discover the world of Luna and join the journey.
-  </p>
-  <a class="button" href="https://discord.gg/lunarian" target="_blank">Join Discord</a>
-</header>
+  <main>
+    <section class="hero" id="top">
+      <div class="wrap">
+        <div class="hero-card">
+          <div class="hero-grid">
+            <div>
+              <h1>Luna Fantasy</h1>
+              <p class="subtitle">
+                A dark fantasy universe of cards, lore, and community.
+                Step into the world of Luna and become a Lunarian.
+              </p>
 
-<footer>
-  © Luna Fantasy
-</footer>
+              <div class="cta-row" id="join">
+                <a class="btn btn-primary" href="https://discord.gg/lunarian" target="_blank" rel="noopener">Join Discord</a>
+                <a class="btn" href="#about">Explore</a>
+              </div>
 
+              <div class="pill">
+                <span>Cards & Lore</span>
+                <span>Events</span>
+                <span>Community</span>
+              </div>
+            </div>
+
+            <div class="hero-side">
+              <div class="stat"><b>Server</b><span>Lunarian</span></div>
+              <div class="stat"><b>Game</b><span>Luna Fantasy</span></div>
+              <div class="stat"><b>Content</b><span>Cards · Lore · Media</span></div>
+              <p class="note">
+                Replace the image file with your official Luna banner anytime — the layout stays clean and premium.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="wrap">
+        <h2 class="section-title">What is Luna Fantasy?</h2>
+        <p class="section-sub">
+          Luna Fantasy is a dark fantasy universe built around collectible cards, lore, and a community-driven experience.
+          This is your official hub — simple now, expandable later.
+        </p>
+
+        <div class="grid">
+          <div class="card">
+            <h3>Cards</h3>
+            <p>Showcase classes, rarities, and your official designs in one clean place.</p>
+          </div>
+          <div class="card">
+            <h3>Lore</h3>
+            <p>Publish story beats, character pages, and world info without making it messy.</p>
+          </div>
+          <div class="card">
+            <h3>Community</h3>
+            <p>Discord-first. Everything points back to your server and your ecosystem.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="media">
+      <div class="wrap">
+        <h2 class="section-title">Media</h2>
+        <p class="section-sub">
+          Put a trailer or showcase video here. Replace the placeholder with a YouTube embed when you’re ready.
+        </p>
+
+        <div class="media-grid">
+          <div class="media-frame">
+            <!-- Replace the iframe src with your YouTube embed link later -->
+            <div>
+              Video placeholder<br/>
+              <span style="opacity:.8;font-size:13px">Later: paste a YouTube embed here</span>
+            </div>
+          </div>
+          <div class="card">
+            <h3>Quick links</h3>
+            <p style="margin-top:10px; line-height:1.9">
+              • Discord: <a href="https://discord.gg/lunarian" target="_blank" rel="noopener" style="opacity:.95">discord.gg/lunarian</a><br/>
+              • Website: <span style="opacity:.9">luna-fantasy.com</span><br/>
+              • Updates: <span style="opacity:.9">Coming soon</span>
+            </p>
+            <div class="cta-row" style="margin-top:12px">
+              <a class="btn btn-primary" href="https://discord.gg/lunarian" target="_blank" rel="noopener">Join Now</a>
+              <a class="btn" href="#top">Back to top</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-row">
+      <div>© Luna Fantasy</div>
+      <div class="social">
+        <!-- Replace these with your real links -->
+        <a href="#" target="_blank" rel="noopener">Instagram</a>
+        <a href="#" target="_blank" rel="noopener">TikTok</a>
+        <a href="#" target="_blank" rel="noopener">YouTube</a>
+        <a href="#" target="_blank" rel="noopener">X</a>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>
